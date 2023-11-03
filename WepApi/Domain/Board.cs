@@ -12,6 +12,8 @@ namespace TicTacToe.WepApi.Domain
             tiles = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         }
 
+        public List<int> GetTiles() { return tiles; }
+
         public PlayMoveResponse Play(int playerId, int tileIndex)
         {
             if (tiles[tileIndex] == 0)

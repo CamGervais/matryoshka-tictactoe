@@ -13,6 +13,11 @@ namespace TicTacToe.WepApi.Domain
             currentPlayerId = 1;
         }
 
+        public GetGameStatusResponse GetGameStatus()
+        {
+            return new GetGameStatusResponse(board.GetTiles());
+        }
+
         public PlayMoveResponse Play(int tileIndex)
         {
             PlayMoveResponse playMoveResponse = board.Play(currentPlayerId, tileIndex);

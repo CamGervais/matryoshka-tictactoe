@@ -11,7 +11,19 @@ export class Board extends Component {
     this.play = this.play.bind(this);
   }
 
-  //onmount get status of tile set state
+  componentDidMount() {
+    fetch("/game/", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(data => {
+        this.setState({
+          tilePlayers: data.tiles
+        })
+      })
+  }
 
   play(tileId) {
     fetch("/game/play", {
@@ -23,12 +35,11 @@ export class Board extends Component {
         "TileIndex": tileId
       })
     }).then(res => {
-        if (res.status === 200) {
+        if (res.status === 200) { //no then if not 200
           return res.json();
         }
       })
       .then(data => {
-        console.log(data)
         const tilesReplaced = this.state.tilePlayers.map((value, index) => {
           if (index === tileId) {
             return data.currentPlayerId;
@@ -36,11 +47,9 @@ export class Board extends Component {
             return value;
           }
         });
-        console.log(tilesReplaced);
         this.setState({
           tilePlayers: tilesReplaced
         })
-        console.log(this.state.tilePlayers)
       })
   }
 

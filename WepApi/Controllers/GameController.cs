@@ -11,6 +11,13 @@ namespace TicTacToe.WepApi.Controllers
     {
         private static Game game = new Game();
 
+        [HttpGet("/game")]
+        public IActionResult Get()
+        {
+            GetGameStatusResponse getGameStatusResponse = game.GetGameStatus();
+            return Ok(getGameStatusResponse);
+        }
+
         [HttpPost("/game/play")]
         public IActionResult Play(PlayMoveRequest playMoveRequest)
         {
