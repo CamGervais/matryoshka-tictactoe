@@ -18,11 +18,18 @@ namespace TicTacToe.WepApi.Controllers
             return Ok(getGameStatusResponse);
         }
 
-        [HttpPost("/game/play")]
+        [HttpPut("/game/play")]
         public IActionResult Play(PlayMoveRequest playMoveRequest)
         {
             PlayMoveResponse playMoveResponse = game.Play(playMoveRequest.TileIndex);
             return Ok(playMoveResponse);
+        }
+
+        [HttpDelete("/game")]
+        public IActionResult RestartGame()
+        {
+            game = new Game();
+            return Ok();
         }
     }
 }
