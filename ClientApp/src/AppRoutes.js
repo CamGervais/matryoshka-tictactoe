@@ -1,7 +1,7 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import { Board } from "./components/Board";
+import { Tictactoe } from "./components/Tictactoe";
 
 const AppRoutes = [
   {
@@ -18,7 +18,7 @@ const AppRoutes = [
   },
   {
     path: '/tic-tac-toe',
-    element: <Board />
+    element: <Tictactoe />
   }
 ];
 
