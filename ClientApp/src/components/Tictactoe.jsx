@@ -14,7 +14,7 @@ export class Tictactoe extends Component {
     this.setTiles = this.setTiles.bind(this);
   }
 
-  componentDidMount() { //if game completed
+  componentDidMount() {
     fetch("/game/", {
       method: 'GET',
       headers: {
@@ -23,7 +23,9 @@ export class Tictactoe extends Component {
     }).then(res => res.json())
       .then(data => {
         this.setState({
-          tilesPlayers: data.tiles
+          tilesPlayers: data.tiles,
+          winner: data.winner,
+          draw: data.draw
         })
       })
   }

@@ -21,7 +21,7 @@ namespace TicTacToe.WepApi.Controllers
         [HttpPut("/game/play")]
         public IActionResult Play(PlayMoveRequest playMoveRequest)
         {
-            PlayMoveResponse playMoveResponse = game.Play(playMoveRequest.TileIndex);
+            PlayMoveResponse playMoveResponse = game.Play(playMoveRequest.tileIndex);
             return Ok(playMoveResponse);
         }
 

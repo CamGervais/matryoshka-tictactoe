@@ -25,16 +25,9 @@ export class Board extends Component {
       })
         .then(data => {
           if (data != undefined) {
-            const tilesReplaced = this.props.tilesPlayers.map((value, index) => {
-              if (index === tileId) {
-                return data.currentPlayerId;
-              } else {
-                return value;
-              }
-            });
-            this.props.setTiles(tilesReplaced);
-            if (data.gameWon) {
-              this.props.setWinner(data.currentPlayerId)
+            this.props.setTiles(data.currentBoard);
+            if (data.gameWinner != 0) {
+              this.props.setWinner(data.gameWinner)
             }
             if (data.draw) {
               this.props.setDraw(true)
