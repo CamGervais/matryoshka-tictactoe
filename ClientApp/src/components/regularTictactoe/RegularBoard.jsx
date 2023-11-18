@@ -8,9 +8,10 @@ export class RegularBoard extends Component {
     this.play = this.play.bind(this);
   }
 
-  play(tileId) { //then if computer = true, call computer play function
+  play(tileId) {
+    console.log(this.props.status);
     if (this.props.status.toLowerCase() == "ongoing") {
-      fetch("/game/play", {
+      fetch("/game/human", {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -19,17 +20,40 @@ export class RegularBoard extends Component {
           "tileIndex": tileId
         })
       }).then(res => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      })
+          if (res.status === 200) {
+            return res.json();
+          }
+        })
         .then(data => {
           if (data != undefined) {
             this.props.setTiles(data.currentBoard);
             this.props.setStatus(data.gameStatus);
           }
+          if (this.props.usesComputer && data.gameStatus.toLowerCase() == "ongoing") {
+            this.computerPlay();
+          }
         })
     }
+  }
+
+  computerPlay() {
+    console.log(this.props.status);
+    fetch("/game/computer", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(res => {
+        if (res.status === 200) {
+          return res.json();
+        }
+      })
+      .then(data => {
+        if (data != undefined) {
+          this.props.setTiles(data.currentBoard);
+          this.props.setStatus(data.gameStatus);
+        }
+      })    
   }
 
   render() {

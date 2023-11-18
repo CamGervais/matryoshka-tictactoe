@@ -15,7 +15,7 @@ namespace TicTacToe.WepApi.Domain
 
         public void Play(int playerId, int tileIndex, ref GameStatus currentGameStatus, int playedElement = 0)
         {
-            if (tiles[tileIndex] == 0)
+            if (tileIndex >= 0 && tileIndex < tiles.Count && tiles[tileIndex] == 0)
             {
                 tiles[tileIndex] = playerId;
             }
@@ -39,6 +39,12 @@ namespace TicTacToe.WepApi.Domain
             {
                 currentGameStatus = GameStatus.Draw;
             }
+        }
+
+        public void PlayBestNextMove(int playerId, ref GameStatus currentGameStatus)
+        {
+            int play = MinimaxAlgorithm.FindBestMove(tiles);
+            Play(playerId, play, ref currentGameStatus);
         }
 
         private bool PlayerHasWinningMove(int playerId)

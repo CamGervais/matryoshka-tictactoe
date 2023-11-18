@@ -11,31 +11,30 @@ export class RegularTictactoe extends Component {
       usesComputer: false,
       gameStarted: false
     }
-    //this.restartGame = this.restartGame.bind(this);
     this.setStatus = this.setStatus.bind(this);
     this.setTiles = this.setTiles.bind(this);
   }
 
   startGame() {
-    fetch("/game/", {
+    fetch("/game", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         "boardType": "regular",
-        "usesComputer": false
+        "usesComputer": this.state.usesComputer
       })
     }).then(() => {
-      this.setState({
-        status: "Ongoing",
-        gameStarted: true
+        this.setState({
+          status: "Ongoing",
+          gameStarted: true
+        })
       })
-    })
   }
 
   restartGame() {
-    fetch("/game/", {
+    fetch("/game", {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -45,11 +44,11 @@ export class RegularTictactoe extends Component {
         "usesComputer": this.state.usesComputer
       })
     }).then(() => {
-      this.setState({
-        tilesPlayers: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        status: "Ongoing"
+        this.setState({
+          tilesPlayers: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          status: "Ongoing"
+        })
       })
-    })
   }
 
   setStatus(newStatus) {
@@ -66,7 +65,7 @@ export class RegularTictactoe extends Component {
 
   updateUsesComputerValue(e) {
     this.setState({
-      usesComputer: e.target.value
+      usesComputer: e.target.checked
     })
   }
 
@@ -87,7 +86,8 @@ export class RegularTictactoe extends Component {
         <div>
           {statusMessage}
           <RegularBoard setStatus={this.setStatus} setTiles={this.setTiles}
-            status={this.state.status} tilesPlayers={this.state.tilesPlayers}></RegularBoard>
+            status={this.state.status} tilesPlayers={this.state.tilesPlayers} usesComputer={this.state.usesComputer}>
+          </RegularBoard>
           <Button color="primary" onClick={() => this.restartGame()}>Restart game</Button>
         </div>
       )

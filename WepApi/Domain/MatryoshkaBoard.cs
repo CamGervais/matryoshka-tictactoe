@@ -21,5 +21,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void PlayBestNextMove(int playerId, ref GameStatus currentGameStatus)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

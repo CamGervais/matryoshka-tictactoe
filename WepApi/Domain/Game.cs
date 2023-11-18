@@ -19,7 +19,7 @@ namespace TicTacToe.WepApi.Domain
 
         public PlayMoveResponse HumanPlay(int tileIndex, int playedElement = 0)
         {
-            board.Play(currentPlayerId, tileIndex, ref status);
+            board.Play(currentPlayerId, tileIndex, ref status, playedElement);
             PlayMoveResponse playMoveResponse = new PlayMoveResponse(board.GetTiles(), status.ToString());
             SwitchCurrentPlayer();
             return playMoveResponse;
@@ -27,7 +27,10 @@ namespace TicTacToe.WepApi.Domain
 
         public PlayMoveResponse ComputerPlay()
         {
-
+            board.PlayBestNextMove(currentPlayerId, ref status);
+            PlayMoveResponse playMoveResponse = new PlayMoveResponse(board.GetTiles(), status.ToString());
+            SwitchCurrentPlayer();
+            return playMoveResponse;
         }
 
         private void SwitchCurrentPlayer()
