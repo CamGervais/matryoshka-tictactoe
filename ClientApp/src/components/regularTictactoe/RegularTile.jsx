@@ -1,18 +1,18 @@
 ﻿import React, { Component } from 'react';
-import baseTile from "../assets/tile.png"
-import oTile from "../assets/O.png"
-import oDiagonalLeft from "../assets/O_diagonal_left_win.png"
-import oDiagonalRight from "../assets/O_diagonal_right_win.png" 
-import oHorizontal from "../assets/O_horizontal_win.png"
-import oVertical from "../assets/O_vertical_win.png"
-import xTile from "../assets/X.png"
-import xDiagonalLeft from "../assets/X_diagonal_left_win.png"
-import xDiagonalRight from "../assets/X_diagonal_right_win.png"
-import xHorizontal from "../assets/X_horizontal_win.png"
-import xVertical from "../assets/X_vertical_win.png"
-import "./Tile.css"
+import baseTile from "../../assets/regularTictactoe/tile.png"
+import oTile from "../../assets/regularTictactoe/O.png"
+import oDiagonalLeft from "../../assets/regularTictactoe/O_diagonal_left_win.png"
+import oDiagonalRight from "../../assets/regularTictactoe/O_diagonal_right_win.png" 
+import oHorizontal from "../../assets/regularTictactoe/O_horizontal_win.png"
+import oVertical from "../../assets/regularTictactoe/O_vertical_win.png"
+import xTile from "../../assets/regularTictactoe/X.png"
+import xDiagonalLeft from "../../assets/regularTictactoe/X_diagonal_left_win.png"
+import xDiagonalRight from "../../assets/regularTictactoe/X_diagonal_right_win.png"
+import xHorizontal from "../../assets/regularTictactoe/X_horizontal_win.png"
+import xVertical from "../../assets/regularTictactoe/X_vertical_win.png"
+import "./style/RegularTile.css"
 
-export class Tile extends Component {
+export class RegularTile extends Component {
   render() {
     let tileImage = <img src={baseTile} alt="Empty tile" className="singleTile" />
     if (this.props.player == 1) {

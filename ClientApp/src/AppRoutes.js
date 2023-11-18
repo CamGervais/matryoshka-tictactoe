@@ -1,7 +1,6 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
-import { Home } from "./components/Home";
-import { Tictactoe } from "./components/Tictactoe";
+import { Home } from "./components/home/Home";
+import { MatryoshkaTictactoe } from "./components/matryoshkaTictactoe/MatryoshkaTictactoe";
+import { RegularTictactoe } from "./components/regularTictactoe/RegularTictactoe";
 
 const AppRoutes = [
   {
@@ -9,16 +8,12 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/counter',
-    element: <Counter />
+    path: '/regular-tic-tac-toe',
+    element: <RegularTictactoe />
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
-  },
-  {
-    path: '/tic-tac-toe',
-    element: <Tictactoe />
+    path: '/matryoshka-tic-tac-toe',
+    element: <MatryoshkaTictactoe />
   }
 ];
 

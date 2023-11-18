@@ -2,7 +2,6 @@
 {
     public record PlayMoveResponse(
         List<int> currentBoard,
-        int gameWinner,
-        bool draw
+        string gameStatus
     );
 }

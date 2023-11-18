@@ -9,27 +9,45 @@ namespace TicTacToe.WepApi.Controllers
     [Route("/game")]
     public class GameController : ControllerBase
     {
-        private static Game game = new Game();
+        private static Game game;
 
-        [HttpGet("/game")]
-        public IActionResult Get()
+        private const string BOARD_TYPE_MATRYOSHKA = "matryoshka";
+
+        [HttpPost("/game")]
+        public IActionResult Create(CreateGameRequest createGameRequest)
         {
-            GetGameStatusResponse getGameStatusResponse = game.GetGameStatus();
-            return Ok(getGameStatusResponse);
+            Board board;
+            if (createGameRequest.boardType == BOARD_TYPE_MATRYOSHKA)
+            {
+                board = new MatryoshkaBoard();
+            }
+            else
+            {
+                board = new RegularBoard();
+            }
+            game = new Game(board, createGameRequest.usesComputer);
+
+            return Ok();
         }
 
-        [HttpPut("/game/play")]
-        public IActionResult Play(PlayMoveRequest playMoveRequest)
+        [HttpPut("/game/human")]
+        public IActionResult HumanPlay(PlayMoveRequest playMoveRequest)
         {
-            PlayMoveResponse playMoveResponse = game.Play(playMoveRequest.tileIndex);
+            PlayMoveResponse playMoveResponse = game.HumanPlay(playMoveRequest.tileIndex);
+            return Ok(playMoveResponse);
+        }
+
+        [HttpPut("/game/computer")]
+        public IActionResult ComputerPlay()
+        {
+            PlayMoveResponse playMoveResponse = game.ComputerPlay();
             return Ok(playMoveResponse);
         }
 
         [HttpDelete("/game")]
-        public IActionResult RestartGame()
+        public IActionResult RestartGame(CreateGameRequest createGameRequest)
         {
-            game = new Game();
-            return Ok();
+            return Create(createGameRequest);
         }
     }
 }

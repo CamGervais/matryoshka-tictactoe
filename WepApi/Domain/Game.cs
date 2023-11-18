@@ -5,37 +5,29 @@ namespace TicTacToe.WepApi.Domain
     public class Game
     {
         private Board board;
+        private GameStatus status;
         private int currentPlayerId;
-        private int winner;
-        private bool isDraw;
+        private bool usesComputer;
 
-        public Game()
+        public Game(Board board, bool usesComputer)
         {
-            board = new Board();
+            this.board = board;
+            this.usesComputer = usesComputer;
             currentPlayerId = 1;
-            winner = 0;
-            isDraw = false;
+            status = GameStatus.Ongoing;
         }
 
-        public GetGameStatusResponse GetGameStatus()
+        public PlayMoveResponse HumanPlay(int tileIndex, int playedElement = 0)
         {
-            return new GetGameStatusResponse(board.GetTiles(), winner, isDraw);
-        }
-
-        public PlayMoveResponse Play(int tileIndex)
-        {
-            PlayMoveResponse playMoveResponse = board.Play(currentPlayerId, tileIndex);
-            if (playMoveResponse.gameWinner != 0)
-            {
-                winner = currentPlayerId;
-            }
-            if (playMoveResponse.draw)
-            {
-                isDraw = true;
-            }
-
+            board.Play(currentPlayerId, tileIndex, ref status);
+            PlayMoveResponse playMoveResponse = new PlayMoveResponse(board.GetTiles(), status.ToString());
             SwitchCurrentPlayer();
             return playMoveResponse;
+        }
+
+        public PlayMoveResponse ComputerPlay()
+        {
+
         }
 
         private void SwitchCurrentPlayer()
