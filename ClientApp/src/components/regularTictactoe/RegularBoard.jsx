@@ -9,7 +9,6 @@ export class RegularBoard extends Component {
   }
 
   play(tileId) {
-    console.log(this.props.status);
     if (this.props.status.toLowerCase() == "ongoing") {
       fetch("/game/human", {
         method: 'PUT',
@@ -37,7 +36,6 @@ export class RegularBoard extends Component {
   }
 
   computerPlay() {
-    console.log(this.props.status);
     fetch("/game/computer", {
       method: 'PUT',
       headers: {

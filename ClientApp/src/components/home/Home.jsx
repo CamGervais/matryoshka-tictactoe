@@ -1,17 +1,23 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import oTile from "../../assets/regularTictactoe/O.png"
+import regularIcon from "../../assets/home/regularTictactoeIcon.png"
+import "./style/Home.css"
 
 export class Home extends Component {
   render() {
-    let usesComputer = true;
     return (
-      <div>
-        <Link to="/regular-tic-tac-toe"> 
-          <img src={oTile} alt="Start regular Tic-tac-toe game" />
+      <div className="links">
+        <Link to="/regular-tic-tac-toe" > 
+          <figure>
+            <img src={regularIcon} className="icons" alt="Start regular Tic-tac-toe game" />
+            <figcaption className="textLines">Play regular tic-tac-toe game</figcaption>
+          </figure>
         </Link>
         <Link to="/matryoshka-tic-tac-toe">
-          <img src={oTile} alt="Start matryoshka Tic-tac-toe game" />
+          <figure>
+            <img src={regularIcon} className="icons" alt="Start matryoshka Tic-tac-toe game" />
+            <figcaption className="textLines">Play matryoshka tic-tac-toe game</figcaption>
+          </figure>
         </Link>
       </div>
     )

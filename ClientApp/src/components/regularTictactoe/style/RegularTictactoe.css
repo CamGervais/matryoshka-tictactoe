@@ -1,0 +1,20 @@
+﻿.startGameForm {
+    text-align: center;
+}
+
+.buttons {
+    margin: 2vh;
+    font-size: large;
+}
+
+.board {
+    text-align: center;
+}
+
+.textLines {
+    font-size: large;
+}
+
+.checkboxes {
+    cursor: pointer;
+}

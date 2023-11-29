@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { RegularBoard } from './RegularBoard';
+import "./style/RegularTictactoe.css"
 
 export class RegularTictactoe extends Component {
   constructor(props) {
@@ -83,30 +84,33 @@ export class RegularTictactoe extends Component {
       }
 
       return (
-        <div>
-          {statusMessage}
+        <div className="board">
+          <div className="textLines">
+            {statusMessage}
+          </div>
+          
           <RegularBoard setStatus={this.setStatus} setTiles={this.setTiles}
             status={this.state.status} tilesPlayers={this.state.tilesPlayers} usesComputer={this.state.usesComputer}>
           </RegularBoard>
-          <Button color="primary" onClick={() => this.restartGame()}>Restart game</Button>
+          <Button className="buttons" color="primary" onClick={() => this.restartGame()}>Restart game</Button>
         </div>
       )
     }
     else {
       return (
-        <div>
+        <div className="startGameForm">
           <Form>
             <FormGroup
               check
               inline
             >
-              <Input type="checkbox" onChange={e => this.updateUsesComputerValue(e)} />
-              <Label check>
+              <Input type="checkbox" className="checkboxes" onChange={e => this.updateUsesComputerValue(e)} />
+              <Label check className="textLines">
                 Play against computer
               </Label>
             </FormGroup>
           </Form>
-          <Button color="primary" onClick={() => this.startGame()}>Start game</Button>
+          <Button color="primary" className="buttons" onClick={() => this.startGame()}>Start game</Button>
         </div>
       )
     }

@@ -1,0 +1,19 @@
+﻿.icons {
+    height: 25vw;
+    margin: 2vw;
+}
+
+.links {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.textLines {
+    font-size: large;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
