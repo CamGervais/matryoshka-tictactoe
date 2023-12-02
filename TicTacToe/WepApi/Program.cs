@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using TicTacToe.WepApi.Controllers.Exceptions;
+using TicTacToe.WepApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<GameService>();
+builder.Services.AddControllers();
 builder.Services.AddMvc(
         config => {
             config.Filters.Add(typeof(ExceptionFilter));
@@ -44,7 +46,7 @@ app.UseExceptionHandler(
 
 
 app.MapControllerRoute(
-    name: "regular tic-tac-toe",
+    name: "tic-tac-toe",
     pattern: "{controller}/{action}/{id?}");
 
 app.MapFallbackToFile("index.html");

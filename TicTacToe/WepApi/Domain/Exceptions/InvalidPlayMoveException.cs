@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.WepApi.Controllers.Exceptions
+﻿namespace TicTacToe.WepApi.Domain.Exceptions
 {
     public class InvalidPlayMoveException : Exception
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicTacToe.WepApi.Controllers.Dto;
-using TicTacToe.WepApi.Domain;
 using TicTacToe.WepApi.Domain.Dto;
+using TicTacToe.WepApi.Service;
 
 namespace TicTacToe.WepApi.Controllers
 {
@@ -9,43 +9,36 @@ namespace TicTacToe.WepApi.Controllers
     [Route("/game")]
     public class GameController : ControllerBase
     {
-        private static Game game;
+        private GameService gameService;
 
-        private const string BOARD_TYPE_MATRYOSHKA = "matryoshka";
+        public GameController(GameService gameService)
+        {
+            this.gameService = gameService;
+        }
 
         [HttpPost("/game")]
         public IActionResult Create(CreateGameRequest createGameRequest)
         {
-            Board board;
-            if (createGameRequest.boardType == BOARD_TYPE_MATRYOSHKA)
-            {
-                board = new MatryoshkaBoard();
-            }
-            else
-            {
-                board = new RegularBoard();
-            }
-            game = new Game(board, createGameRequest.usesComputer);
-
+            gameService.CreateGame(createGameRequest);
             return Ok();
         }
 
         [HttpPut("/game/human")]
         public IActionResult HumanPlay(PlayMoveRequest playMoveRequest)
         {
-            PlayMoveResponse playMoveResponse = game.HumanPlay(playMoveRequest.tileIndex);
+            PlayMoveResponse playMoveResponse = gameService.HumanPlay(playMoveRequest);
             return Ok(playMoveResponse);
         }
 
         [HttpPut("/game/computer")]
         public IActionResult ComputerPlay()
         {
-            PlayMoveResponse playMoveResponse = game.ComputerPlay();
+            PlayMoveResponse playMoveResponse = gameService.ComputerPlay();
             return Ok(playMoveResponse);
         }
 
         [HttpDelete("/game")]
-        public IActionResult RestartGame(CreateGameRequest createGameRequest)
+        public IActionResult Restart(CreateGameRequest createGameRequest)
         {
             return Create(createGameRequest);
         }

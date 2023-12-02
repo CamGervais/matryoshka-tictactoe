@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
+using TicTacToe.Infrastructure.Exceptions;
+using TicTacToe.WepApi.Domain.Exceptions;
 
 namespace TicTacToe.WepApi.Controllers.Exceptions
 {
@@ -15,6 +17,11 @@ namespace TicTacToe.WepApi.Controllers.Exceptions
             {
                 message = context.Exception.ToString();
                 status = HttpStatusCode.BadRequest;
+            }
+            else if (exceptionType == typeof(GameNotFoundException))
+            {
+                message = context.Exception.ToString();
+                status = HttpStatusCode.NotFound;
             }
             else
             {

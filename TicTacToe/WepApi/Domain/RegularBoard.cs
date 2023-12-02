@@ -1,4 +1,4 @@
-﻿using TicTacToe.WepApi.Controllers.Exceptions;
+﻿using TicTacToe.WepApi.Domain.Exceptions;
 
 namespace TicTacToe.WepApi.Domain
 {
@@ -15,7 +15,16 @@ namespace TicTacToe.WepApi.Domain
 
         public void Play(int playerId, int tileIndex, ref GameStatus currentGameStatus, int playedElement = 0)
         {
-            if (tileIndex >= 0 && tileIndex < tiles.Count && tiles[tileIndex] == 0)
+            if (tileIndex < 0 || tileIndex >= tiles.Count)
+            {
+                throw new InvalidPlayMoveException("Played tile index is out of range.");
+            }
+            if (currentGameStatus != GameStatus.Ongoing)
+            {
+                throw new InvalidPlayMoveException("Game is completed.");
+            }
+
+            if (tiles[tileIndex] == 0)
             {
                 tiles[tileIndex] = playerId;
             }
@@ -49,48 +58,30 @@ namespace TicTacToe.WepApi.Domain
 
         private bool PlayerHasWinningMove(int playerId)
         {
-            if (tiles[0] == playerId && tiles[1] == playerId && tiles[2] == playerId)
+            int[] rows = { 0, 3, 6 };
+            foreach (int row in rows)
             {
-                tiles[0] = playerId + 2;
-                tiles[1] = playerId + 2;
-                tiles[2] = playerId + 2;
-                return true;
+                if (tiles[row] == playerId && tiles[row + 1] == playerId && tiles[row + 2] == playerId)
+                {
+                    tiles[row] = playerId + 2;
+                    tiles[row + 1] = playerId + 2;
+                    tiles[row + 2] = playerId + 2;
+                    return true;
+                }
             }
-            if (tiles[3] == playerId && tiles[4] == playerId && tiles[5] == playerId)
+
+            int[] columns = { 0, 1, 2 };
+            foreach (int col in columns)
             {
-                tiles[3] = playerId + 2;
-                tiles[4] = playerId + 2;
-                tiles[5] = playerId + 2;
-                return true;
+                if (tiles[col] == playerId && tiles[col + 3] == playerId && tiles[col + 6] == playerId)
+                {
+                    tiles[col] = playerId + 4;
+                    tiles[col + 3] = playerId + 4;
+                    tiles[col + 6] = playerId + 4;
+                    return true;
+                }
             }
-            if (tiles[6] == playerId && tiles[7] == playerId && tiles[8] == playerId)
-            {
-                tiles[6] = playerId + 2;
-                tiles[7] = playerId + 2;
-                tiles[8] = playerId + 2;
-                return true;
-            }
-            if (tiles[0] == playerId && tiles[3] == playerId && tiles[6] == playerId)
-            {
-                tiles[0] = playerId + 4;
-                tiles[3] = playerId + 4;
-                tiles[6] = playerId + 4;
-                return true;
-            }
-            if (tiles[1] == playerId && tiles[4] == playerId && tiles[7] == playerId)
-            {
-                tiles[1] = playerId + 4;
-                tiles[4] = playerId + 4;
-                tiles[7] = playerId + 4;
-                return true;
-            }
-            if (tiles[2] == playerId && tiles[5] == playerId && tiles[8] == playerId)
-            {
-                tiles[2] = playerId + 4;
-                tiles[5] = playerId + 4;
-                tiles[8] = playerId + 4;
-                return true;
-            }
+
             if (tiles[0] == playerId && tiles[4] == playerId && tiles[8] == playerId)
             {
                 tiles[0] = playerId + 6;
@@ -98,6 +89,7 @@ namespace TicTacToe.WepApi.Domain
                 tiles[8] = playerId + 6;
                 return true;
             }
+
             if (tiles[2] == playerId && tiles[4] == playerId && tiles[6] == playerId)
             {
                 tiles[2] = playerId + 8;
@@ -105,6 +97,7 @@ namespace TicTacToe.WepApi.Domain
                 tiles[6] = playerId + 8;
                 return true;
             }
+
             return false;
         }
 

@@ -19,7 +19,7 @@
             int[] rows = { 0, 3, 6 };
             foreach (int row in rows)
             {
-                if (tiles[row] == tiles[row+1] && tiles[row+1] == tiles[row+2])
+                if (tiles[row] == tiles[row + 1] && tiles[row + 1] == tiles[row + 2])
                 {
                     if (tiles[row] == computerPlayerId)
                     {
