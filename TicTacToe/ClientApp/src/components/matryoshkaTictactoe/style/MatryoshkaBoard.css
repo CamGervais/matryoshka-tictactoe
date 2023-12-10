@@ -1,0 +1,21 @@
+﻿.tileFirstRow {
+    display: inline-flex;
+}
+
+.tileSecondRow {
+    display: inline-flex;
+}
+
+.tileThirdRow {
+    display: inline-flex;
+}
+
+.tileBoard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boardArea {
+    display: flex;
+}

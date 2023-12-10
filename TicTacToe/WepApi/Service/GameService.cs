@@ -25,7 +25,7 @@ namespace TicTacToe.WepApi.Service
         public PlayMoveResponse HumanPlay(PlayMoveRequest playMoveRequest)
         {
             Game game = gameRepository.GetNewestGame();
-            PlayMoveResponse playMoveResponse = game.HumanPlay(playMoveRequest.tileIndex);
+            PlayMoveResponse playMoveResponse = game.HumanPlay(playMoveRequest.tileIndex, playMoveRequest.playedElement);
             gameRepository.UpdateNewestGame(game);
             return playMoveResponse;
         }

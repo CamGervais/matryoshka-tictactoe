@@ -1,6 +1,7 @@
 ﻿namespace TicTacToe.WepApi.Controllers.Dto
 {
     public record PlayMoveRequest(
-        int tileIndex
+        int tileIndex,
+        int playedElement
     );
 }

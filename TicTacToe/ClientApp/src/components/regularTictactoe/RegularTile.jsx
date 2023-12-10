@@ -15,34 +15,35 @@ import "./style/RegularTile.css"
 export class RegularTile extends Component {
   render() {
     let tileImage = <img src={baseTile} alt="Empty tile" className="singleTile" />
-    if (this.props.player == 1) {
+    const player = this.props.player;
+    if (player == 1) {
       tileImage = <img src={xTile} alt="X tile" className="singleTile" />
     }
-    else if (this.props.player == 2) {
+    else if (player == 2) {
       tileImage = <img src={oTile} alt="O tile" className="singleTile" />
     }
-    else if (this.props.player == 3) {
+    else if (player == 3) {
       tileImage = <img src={xHorizontal} alt="X tile horizontal win" className="singleTile" />
     }
-    else if (this.props.player == 4) {
+    else if (player == 4) {
       tileImage = <img src={oHorizontal} alt="O tile horizontal win" className="singleTile" />
     }
-    else if (this.props.player == 5) {
+    else if (player == 5) {
       tileImage = <img src={xVertical} alt="X tile vertical win" className="singleTile" />
     }
-    else if (this.props.player == 6) {
+    else if (player == 6) {
       tileImage = <img src={oVertical} alt="O tile vertical win" className="singleTile" />
     }
-    else if (this.props.player == 7) {
+    else if (player == 7) {
       tileImage = <img src={xDiagonalLeft} alt="X tile diagonal left win" className="singleTile" />
     }
-    else if (this.props.player == 8) {
+    else if (player == 8) {
       tileImage = <img src={oDiagonalLeft} alt="O tile diagonal left win" className="singleTile" />
     }
-    else if (this.props.player == 9) {
+    else if (player == 9) {
       tileImage = <img src={xDiagonalRight} alt="X tile diagonal right win" className="singleTile" />
     }
-    else if (this.props.player == 10) {
+    else if (player == 10) {
       tileImage = <img src={oDiagonalRight} alt="O tile diagonal right win" className="singleTile" />
     }
 

@@ -59,35 +59,35 @@ export class RegularBoard extends Component {
       <div className="tileBoard">
         <div className="tileFirstRow" >
           <div id="tile0" onClick={() => this.play(0)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 0)} />
+            <RegularTile player={this.props.tilesPlayers[0]} />
           </div>
           <div id="tile1" onClick={() => this.play(1)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 1)} />
+            <RegularTile player={this.props.tilesPlayers[1]} />
           </div>
           <div id="tile2" onClick={() => this.play(2)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 2)} />
+            <RegularTile player={this.props.tilesPlayers[2]} />
           </div>
         </div>
         <div className="tileSecondRow">
           <div id="tile3" onClick={() => this.play(3)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 3)} />
+            <RegularTile player={this.props.tilesPlayers[3]} />
           </div>
           <div id="tile4" onClick={() => this.play(4)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 4)} />
+            <RegularTile player={this.props.tilesPlayers[4]} />
           </div>
           <div id="tile5" onClick={() => this.play(5)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 5)} />
+            <RegularTile player={this.props.tilesPlayers[5]} />
           </div>
         </div>
         <div className="tileThirdRow">
           <div id="tile6" onClick={() => this.play(6)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 6)} />
+            <RegularTile player={this.props.tilesPlayers[6]} />
           </div>
           <div id="tile7" onClick={() => this.play(7)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 7)} />
+            <RegularTile player={this.props.tilesPlayers[7]} />
           </div>
           <div id="tile8" onClick={() => this.play(8)}>
-            <RegularTile player={this.props.tilesPlayers.filter((_, index) => index === 8)} />
+            <RegularTile player={this.props.tilesPlayers[8]} />
           </div>
         </div>
       </div>

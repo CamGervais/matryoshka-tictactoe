@@ -9,6 +9,7 @@ export class RegularTictactoe extends Component {
     this.state = {
       tilesPlayers: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       status: "",
+      boardType: "regular",
       usesComputer: false,
       gameStarted: false
     }
@@ -23,7 +24,7 @@ export class RegularTictactoe extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "boardType": "regular",
+        "boardType": this.state.boardType,
         "usesComputer": this.state.usesComputer
       })
     }).then(() => {
@@ -41,7 +42,7 @@ export class RegularTictactoe extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "boardType": "regular",
+        "boardType": this.state.boardType,
         "usesComputer": this.state.usesComputer
       })
     }).then(() => {
@@ -64,7 +65,7 @@ export class RegularTictactoe extends Component {
     })
   }
 
-  updateUsesComputerValue(e) {
+  setUsesComputerValue(e) {
     this.setState({
       usesComputer: e.target.checked
     })
@@ -104,7 +105,7 @@ export class RegularTictactoe extends Component {
               check
               inline
             >
-              <Input type="checkbox" className="checkboxes" onChange={e => this.updateUsesComputerValue(e)} />
+              <Input type="checkbox" className="checkboxes" onChange={e => this.setUsesComputerValue(e)} />
               <Label check className="textLines">
                 Play against computer
               </Label>
