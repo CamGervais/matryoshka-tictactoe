@@ -17,7 +17,7 @@ namespace TicTacToeTests.Controllers
         {
             gameService = new GameService();
             gameController = new GameController(gameService);
-            playMoveRequest = new PlayMoveRequest(0);
+            playMoveRequest = new PlayMoveRequest(0, 0);
             createGameRequest = new CreateGameRequest("regular", true);
         }
 

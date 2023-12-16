@@ -9,6 +9,8 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
     super(props);
     this.state = {
       tilesPlayers: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      draggableSquarePieces: [0, 0, 0, 0, 0, 0],
+      draggableCirclePieces: [1, 1, 1, 1, 1, 1],
       status: "",
       boardType: "matryoshka",
       usesComputer: false,
@@ -16,6 +18,34 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
     }
     this.setStatus = this.setStatus.bind(this);
     this.setTiles = this.setTiles.bind(this);
+    this.setDraggablePieces = this.setDraggablePieces.bind(this);
+  }
+
+  restartGame() {
+    fetch("/game", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "boardType": this.state.boardType,
+        "usesComputer": this.state.usesComputer
+      })
+    }).then(() => {
+      this.setState({
+        tilesPlayers: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        draggableSquarePieces: [0, 0, 0, 0, 0, 0],
+        draggableCirclePieces: [1, 1, 1, 1, 1, 1],
+        status: "Ongoing"
+      })
+    })
+  }
+
+  setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces) {
+    this.setState({
+      draggableSquarePieces: newDraggableSquarePieces,
+      draggableCirclePieces: newDraggableCirclePieces
+    })
   }
 
   render() {
@@ -36,8 +66,9 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
           <div className="textLines">
             {statusMessage}
           </div>
-          <MatryoshkaBoard setStatus={this.setStatus} setTiles={this.setTiles}
-            status={this.state.status} tilesPlayers={this.state.tilesPlayers} usesComputer={this.state.usesComputer}>
+          <MatryoshkaBoard setStatus={this.setStatus} setTiles={this.setTiles} setDraggablePieces={this.setDraggablePieces}
+            status={this.state.status} tilesPlayers={this.state.tilesPlayers} usesComputer={this.state.usesComputer}
+            draggableSquarePieces={this.state.draggableSquarePieces} draggableCirclePieces={this.state.draggableCirclePieces}>
           </MatryoshkaBoard>
           <Button className="buttons" color="primary" onClick={() => this.restartGame()}>Restart game</Button>
         </div>

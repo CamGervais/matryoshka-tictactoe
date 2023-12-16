@@ -6,10 +6,6 @@ import "./style/MatryoshkaBoard.css"
 export class MatryoshkaBoard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      draggableSquarePieces: [0, 0, 0, 0, 0, 0],
-      draggableCirclePieces: [1, 1, 1, 1, 1, 1]
-    }
     this.play = this.play.bind(this);
   }
 
@@ -35,7 +31,7 @@ export class MatryoshkaBoard extends Component {
             this.props.setStatus(data.gameStatus);
 
             if (pieceShape == "square") {
-              const newDraggableSquarePieces = this.state.draggableSquarePieces.map((pieceValue, index) => {
+              const newDraggableSquarePieces = this.props.draggableSquarePieces.map((pieceValue, index) => {
                 if (index == pieceIndex) {
                   return 2;
                 }
@@ -46,7 +42,7 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              const newDraggableCirclePieces = this.state.draggableCirclePieces.map((pieceValue, _) => {
+              const newDraggableCirclePieces = this.props.draggableCirclePieces.map((pieceValue, _) => {
                 if (pieceValue === 1) {
                   return 0;
                 }
@@ -54,14 +50,11 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              this.setState({
-                draggableSquarePieces: newDraggableSquarePieces,
-                draggableCirclePieces: newDraggableCirclePieces
-              });
+              this.props.setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces);
             }
 
             else if (pieceShape == "circle") {
-              const newDraggableCirclePieces = this.state.draggableCirclePieces.map((pieceValue, index) => {
+              const newDraggableCirclePieces = this.props.draggableCirclePieces.map((pieceValue, index) => {
                 if (index == pieceIndex) {
                   return 2;
                 }
@@ -72,7 +65,7 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              const newDraggableSquarePieces = this.state.draggableSquarePieces.map((pieceValue, _) => {
+              const newDraggableSquarePieces = this.props.draggableSquarePieces.map((pieceValue, _) => {
                 if (pieceValue === 1) {
                   return 0;
                 }
@@ -80,10 +73,7 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              this.setState({
-                draggableSquarePieces: newDraggableSquarePieces,
-                draggableCirclePieces: newDraggableCirclePieces
-              });
+              this.props.setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces);
             }
           }
 
@@ -124,7 +114,7 @@ export class MatryoshkaBoard extends Component {
   render() {
     return (
       <div className="boardArea">
-        <MatryoshkaPieces shape="square" draggablePieces={this.state.draggableSquarePieces}></MatryoshkaPieces>
+        <MatryoshkaPieces shape="square" draggablePieces={this.props.draggableSquarePieces}></MatryoshkaPieces>
         <div className="tileBoard">
           <div className="tileFirstRow" >
             <div id="tile0" onDrop={(e) => this.handleDropPiece(e, 0)} onDragOver={(e) => e.preventDefault()}>
@@ -160,7 +150,7 @@ export class MatryoshkaBoard extends Component {
             </div>
           </div>
         </div>
-        <MatryoshkaPieces shape="circle" draggablePieces={this.state.draggableCirclePieces}></MatryoshkaPieces>
+        <MatryoshkaPieces shape="circle" draggablePieces={this.props.draggableCirclePieces}></MatryoshkaPieces>
       </div>
     )
   }

@@ -21,7 +21,7 @@ namespace TicTacToe.WepApi.Domain
             }
             if (currentGameStatus != GameStatus.Ongoing)
             {
-                throw new InvalidPlayMoveException("Game is completed.");
+                throw new InvalidPlayMoveException("The game is completed.");
             }
 
             if (tiles[tileIndex] == 0)
@@ -63,9 +63,9 @@ namespace TicTacToe.WepApi.Domain
             {
                 if (tiles[row] == playerId && tiles[row + 1] == playerId && tiles[row + 2] == playerId)
                 {
-                    tiles[row] = playerId + 2;
-                    tiles[row + 1] = playerId + 2;
-                    tiles[row + 2] = playerId + 2;
+                    tiles[row] += 2;
+                    tiles[row + 1] += 2;
+                    tiles[row + 2] += 2;
                     return true;
                 }
             }
@@ -75,26 +75,26 @@ namespace TicTacToe.WepApi.Domain
             {
                 if (tiles[col] == playerId && tiles[col + 3] == playerId && tiles[col + 6] == playerId)
                 {
-                    tiles[col] = playerId + 4;
-                    tiles[col + 3] = playerId + 4;
-                    tiles[col + 6] = playerId + 4;
+                    tiles[col] += 4;
+                    tiles[col + 3] += 4;
+                    tiles[col + 6] += 4;
                     return true;
                 }
             }
 
             if (tiles[0] == playerId && tiles[4] == playerId && tiles[8] == playerId)
             {
-                tiles[0] = playerId + 6;
-                tiles[4] = playerId + 6;
-                tiles[8] = playerId + 6;
+                tiles[0] += 6;
+                tiles[4] += 6;
+                tiles[8] += 6;
                 return true;
             }
 
             if (tiles[2] == playerId && tiles[4] == playerId && tiles[6] == playerId)
             {
-                tiles[2] = playerId + 8;
-                tiles[4] = playerId + 8;
-                tiles[6] = playerId + 8;
+                tiles[2] += 8;
+                tiles[4] += 8;
+                tiles[6] += 8;
                 return true;
             }
 

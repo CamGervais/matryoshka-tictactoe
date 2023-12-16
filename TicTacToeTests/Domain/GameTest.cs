@@ -13,7 +13,7 @@ namespace TicTacToeTests.Domain
         public GameTest()
         {
             board = new RegularBoard();
-            game = new Game(board, true);
+            game = new Game(board, true, 5);
         }
 
         [TestMethod]
@@ -35,6 +35,32 @@ namespace TicTacToeTests.Domain
 
             List<int> expected = new List<int>() { 1, 2, 0, 0, 0, 0, 0, 0, 0 };
             CollectionAssert.AreEqual(expected, actual.currentBoard);
+        }
+
+        [TestMethod]
+        public void GivenOngoingGameAndMaxTurnsHit_WhenHumanPlay_ThenGameIsDraw()
+        {
+            game.HumanPlay(0);
+            game.HumanPlay(1);
+            game.HumanPlay(2);
+            game.HumanPlay(3);
+
+            PlayMoveResponse actual = game.HumanPlay(4);
+
+            Assert.AreEqual(GameStatus.Draw.ToString(), actual.gameStatus);
+        }
+
+        [TestMethod]
+        public void GivenCompletedGameAndMaxTurnsHit_WhenHumanPlay_ThenGameIsNotReplacedByDraw()
+        {
+            game.HumanPlay(0);
+            game.HumanPlay(3);
+            game.HumanPlay(1);
+            game.HumanPlay(4);
+
+            PlayMoveResponse actual = game.HumanPlay(2);
+
+            Assert.AreEqual(GameStatus.Player1Win.ToString(), actual.gameStatus);
         }
 
         [TestMethod]
@@ -61,9 +87,40 @@ namespace TicTacToeTests.Domain
         [ExpectedException(typeof(InvalidPlayMoveException))]
         public void GivenGameNotUsingComputer_WhenComputerPlay_ThenError()
         {
-            game = new Game(board, false);
+            game = new Game(board, false, 5);
 
             game.ComputerPlay();
+        }
+
+        [TestMethod]
+        public void GivenOngoingGameAndMaxTurnsHit_WhenComputerPlay_ThenGameIsDraw()
+        {
+            game.HumanPlay(0);
+            game.HumanPlay(1);
+            game.HumanPlay(2);
+            game.HumanPlay(4);
+
+            PlayMoveResponse actual = game.ComputerPlay();
+
+            Assert.AreEqual(GameStatus.Draw.ToString(), actual.gameStatus);
+        }
+
+        [TestMethod]
+        public void GivenCompletedGameAndMaxTurnsHit_WhenComputerPlay_ThenGameIsNotReplacedByDraw()
+        {
+            game = new Game(board, true, 9);
+            game.HumanPlay(0);
+            game.HumanPlay(1);
+            game.HumanPlay(4);
+            game.HumanPlay(2);
+            game.HumanPlay(5);
+            game.HumanPlay(3);
+            game.HumanPlay(6);
+            game.HumanPlay(7);
+
+            PlayMoveResponse actual = game.ComputerPlay();
+
+            Assert.AreEqual(GameStatus.Player1Win.ToString(), actual.gameStatus);
         }
     }
 }

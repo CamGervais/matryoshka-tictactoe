@@ -57,6 +57,15 @@ namespace TicTacToeTests.Domain
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidPlayMoveException))]
+        public void GivenExistingPlay_WhenPlayOnSameTile_ThenError()
+        {
+            board.Play(1, 0, ref gameStatus);
+
+            board.Play(1, 0, ref gameStatus);
+        }
+
+        [TestMethod]
         public void GivenOngoingGame_WhenPlayer1PlaysWinningMove_ThenStatusIsPlayer1Win()
         {
             board.Play(1, 0, ref gameStatus);

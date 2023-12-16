@@ -15,8 +15,8 @@ namespace TicTacToeTests.Infrastructure
         public GameRepositoryTest()
         {
             gameRepository = new GameRepository();
-            firstGame = new Game(new RegularBoard(), true);
-            secondGame = new Game(new RegularBoard(), false);
+            firstGame = new Game(new RegularBoard(), true, 9);
+            secondGame = new Game(new RegularBoard(), false, 9);
         }
 
         [TestMethod]
