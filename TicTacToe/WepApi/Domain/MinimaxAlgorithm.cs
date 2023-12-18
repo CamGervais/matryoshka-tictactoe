@@ -147,12 +147,13 @@
         public static int Minimax(List<int> tiles, bool isMax, int playedTileIndex)
         {
             int score = Evaluate(tiles, playedTileIndex);
+            
             if (score != 0)
             {
                 return score;
             }
 
-            if (IsMovesLeft(tiles) == false)
+            if (!IsMovesLeft(tiles))
             {
                 return 0;
             }
@@ -191,10 +192,9 @@
         public static int FindBestMove(List<int> tiles)
         {
             int bestVal = -1000;
-            int bestMove = -1;
             List<int> choices = new List<int>
             {
-                bestMove
+                -1
             };
 
             for (int i = 0; i < 9; i++)
@@ -211,10 +211,9 @@
                     }
                     if (moveVal > bestVal)
                     {
-                        bestMove = i;
                         bestVal = moveVal;
                         choices.Clear();
-                        choices.Add(bestMove);
+                        choices.Add(i);
                     }
                 }
             }

@@ -42,15 +42,18 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              const newDraggableCirclePieces = this.props.draggableCirclePieces.map((pieceValue, _) => {
-                if (pieceValue === 1) {
-                  return 0;
-                }
-                else {
-                  return pieceValue;
-                }
-              });
-              this.props.setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces);
+              this.props.setDraggableSquarePieces(newDraggableSquarePieces);
+              if (!this.props.usesComputer) {
+                const newDraggableCirclePieces = this.props.draggableCirclePieces.map((pieceValue, _) => {
+                  if (pieceValue === 1) {
+                    return 0;
+                  }
+                  else {
+                    return pieceValue;
+                  }
+                });
+                this.props.setDraggableCirclePieces(newDraggableCirclePieces);
+              }
             }
 
             else if (pieceShape == "circle") {
@@ -65,6 +68,7 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
+              this.props.setDraggableCirclePieces(newDraggableCirclePieces);
               const newDraggableSquarePieces = this.props.draggableSquarePieces.map((pieceValue, _) => {
                 if (pieceValue === 1) {
                   return 0;
@@ -73,7 +77,7 @@ export class MatryoshkaBoard extends Component {
                   return pieceValue;
                 }
               });
-              this.props.setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces);
+              this.props.setDraggableSquarePieces(newDraggableSquarePieces);
             }
           }
 
@@ -97,6 +101,15 @@ export class MatryoshkaBoard extends Component {
     })
       .then(data => {
         if (data != undefined) {
+          const newDraggableSquarePieces = this.props.draggableSquarePieces.map((pieceValue, _) => {
+            if (pieceValue === 1) {
+              return 0;
+            }
+            else {
+              return pieceValue;
+            }
+          });
+          this.props.setDraggableSquarePieces(newDraggableSquarePieces);
           this.props.setTiles(data.currentBoard);
           this.props.setStatus(data.gameStatus);
         }

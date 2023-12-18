@@ -18,7 +18,8 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
     }
     this.setStatus = this.setStatus.bind(this);
     this.setTiles = this.setTiles.bind(this);
-    this.setDraggablePieces = this.setDraggablePieces.bind(this);
+    this.setDraggableSquarePieces = this.setDraggableSquarePieces.bind(this);
+    this.setDraggableCirclePieces = this.setDraggableCirclePieces.bind(this);
   }
 
   restartGame() {
@@ -41,9 +42,14 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
     })
   }
 
-  setDraggablePieces(newDraggableSquarePieces, newDraggableCirclePieces) {
+  setDraggableSquarePieces(newDraggableSquarePieces) {
     this.setState({
-      draggableSquarePieces: newDraggableSquarePieces,
+      draggableSquarePieces: newDraggableSquarePieces
+    })
+  }
+
+  setDraggableCirclePieces(newDraggableCirclePieces) {
+    this.setState({
       draggableCirclePieces: newDraggableCirclePieces
     })
   }
@@ -66,7 +72,8 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
           <div className="textLines">
             {statusMessage}
           </div>
-          <MatryoshkaBoard setStatus={this.setStatus} setTiles={this.setTiles} setDraggablePieces={this.setDraggablePieces}
+          <MatryoshkaBoard setStatus={this.setStatus} setTiles={this.setTiles}
+            setDraggableSquarePieces={this.setDraggableSquarePieces} setDraggableCirclePieces={this.setDraggableCirclePieces}
             status={this.state.status} tilesPlayers={this.state.tilesPlayers} usesComputer={this.state.usesComputer}
             draggableSquarePieces={this.state.draggableSquarePieces} draggableCirclePieces={this.state.draggableCirclePieces}>
           </MatryoshkaBoard>
@@ -82,7 +89,7 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
               check
               inline
             >
-              <Input type="checkbox" className="checkboxes" onChange={e => this.updateUsesComputerValue(e)} />
+              <Input type="checkbox" className="checkboxes" onChange={e => this.setUsesComputerValue(e)} />
               <Label check className="textLines">
                 Play against computer
               </Label>

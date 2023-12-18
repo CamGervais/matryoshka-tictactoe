@@ -5,12 +5,22 @@ namespace TicTacToe.WepApi.Domain
     public class MatryoshkaBoard : Board
     {
         private List<(int, int, int)> tiles;
+        private List<int> unusedPlayer1Pieces;
+        private List<int> unusedPlayer2Pieces;
 
         public MatryoshkaBoard() 
         { 
             tiles = new List<(int, int, int)>()
             {
                 (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)
+            };
+            unusedPlayer1Pieces = new List<int>()
+            {
+                1, 1, 2, 2, 3, 3
+            };
+            unusedPlayer2Pieces = new List<int>()
+            {
+                1, 1, 2, 2, 3, 3
             };
         }
 
@@ -29,11 +39,24 @@ namespace TicTacToe.WepApi.Domain
             {
                 throw new InvalidPlayMoveException("The game is completed.");
             }
+            if ((playerId == 1 && !unusedPlayer1Pieces.Contains(playedElement)) ||
+                (playerId == 2 && !unusedPlayer2Pieces.Contains(playedElement)))
+            {
+                throw new InvalidPlayMoveException("There are no of the played element left to be played.");
+            }
 
             if (playedElement > tiles[tileIndex].Item2)
             {
                 int addedNumber = playerId == 1 ? 0 : 3;
                 tiles[tileIndex] = (playerId, playedElement, playedElement + addedNumber);
+                if (playerId == 1)
+                {
+                    unusedPlayer1Pieces.Remove(playedElement);
+                }
+                else
+                {
+                    unusedPlayer2Pieces.Remove(playedElement);
+                }
             }
             else
             {
@@ -59,7 +82,9 @@ namespace TicTacToe.WepApi.Domain
 
         public void PlayBestNextMove(int playerId, ref GameStatus currentGameStatus)
         {
-            throw new NotImplementedException();
+            List<(int, int)> tilesElements = tiles.Select(i => (i.Item1, i.Item2)).ToList();
+            (int, int) play = MatryoshkaMinimaxAlgorithm.FindBestMove(tilesElements, unusedPlayer1Pieces, unusedPlayer2Pieces);
+            Play(playerId, play.Item1, ref currentGameStatus, play.Item2);
         }
 
         private bool PlayerHasWinningMove(int playerId)

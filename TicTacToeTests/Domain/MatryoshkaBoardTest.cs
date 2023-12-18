@@ -71,6 +71,26 @@ namespace TicTacToeTests.Domain
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidPlayMoveException))]
+        public void GivenPlayer1PlayedAllItemsOfAnElement_WhenPlayElement_ThenError()
+        {
+            board.Play(1, 0, ref gameStatus, 1);
+            board.Play(1, 1, ref gameStatus, 1);
+
+            board.Play(1, 2, ref gameStatus, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidPlayMoveException))]
+        public void GivenPlayer2PlayedAllItemsOfAnElement_WhenPlayElement_ThenError()
+        {
+            board.Play(2, 0, ref gameStatus, 1);
+            board.Play(2, 1, ref gameStatus, 1);
+
+            board.Play(2, 2, ref gameStatus, 1);
+        }
+
+        [TestMethod]
         public void GivenOngoingGame_WhenPlayer1PlaysWinningMove_ThenStatusIsPlayer1Win()
         {
             board.Play(1, 0, ref gameStatus, 1);
@@ -170,6 +190,16 @@ namespace TicTacToeTests.Domain
             List<int> expected = new List<int>() { 4, 1, 28, 0, 29, 0, 30, 0, 2 };
             List<int> actual = board.GetTiles();
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GivenOngoingGame_WhenPlayBestNextMove_ThenTilesAreUpdated()
+        {
+            board.PlayBestNextMove(1, ref gameStatus);
+
+            List<int> notExpected = new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            List<int> actual = board.GetTiles();
+            CollectionAssert.AreNotEqual(notExpected, actual);
         }
     }
 }
