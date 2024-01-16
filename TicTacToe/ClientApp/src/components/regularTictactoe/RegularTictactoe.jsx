@@ -11,7 +11,8 @@ export class RegularTictactoe extends Component {
       status: "",
       boardType: "regular",
       usesComputer: false,
-      gameStarted: false
+      gameStarted: false,
+      currentPlayer: 1
     }
     this.setStatus = this.setStatus.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -55,7 +56,8 @@ export class RegularTictactoe extends Component {
 
   setStatus(newStatus) {
     this.setState({
-      status: newStatus
+      status: newStatus,
+      currentPlayer: this.state.currentPlayer == 1 ? 2 : 1
     })
   }
 
@@ -73,7 +75,7 @@ export class RegularTictactoe extends Component {
 
   render() {
     if (this.state.gameStarted) {
-      let statusMessage = "";
+      let statusMessage = `Player ${this.state.currentPlayer} is playing...`;
       if (this.state.status == "Draw") {
         statusMessage = "It's a draw!";
       }

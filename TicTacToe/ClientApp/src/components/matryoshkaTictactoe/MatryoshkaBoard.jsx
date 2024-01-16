@@ -27,9 +27,6 @@ export class MatryoshkaBoard extends Component {
       })
         .then(data => {
           if (data != undefined) {
-            this.props.setTiles(data.currentBoard);
-            this.props.setStatus(data.gameStatus);
-
             if (pieceShape == "square") {
               const newDraggableSquarePieces = this.props.draggableSquarePieces.map((pieceValue, index) => {
                 if (index == pieceIndex) {
@@ -79,10 +76,12 @@ export class MatryoshkaBoard extends Component {
               });
               this.props.setDraggableSquarePieces(newDraggableSquarePieces);
             }
-          }
+            this.props.setTiles(data.currentBoard);
+            this.props.setStatus(data.gameStatus);
 
-          if (this.props.usesComputer && data.gameStatus.toLowerCase() == "ongoing") {
-            this.computerPlay();
+            if (this.props.usesComputer && data.gameStatus.toLowerCase() == "ongoing") {
+              this.computerPlay();
+            }
           }
         })
     }

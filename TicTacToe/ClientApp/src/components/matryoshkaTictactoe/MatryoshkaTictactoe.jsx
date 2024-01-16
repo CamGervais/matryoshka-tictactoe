@@ -2,7 +2,10 @@
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { RegularTictactoe } from '../regularTictactoe/RegularTictactoe';
 import { MatryoshkaBoard } from './MatryoshkaBoard';
-import "../regularTictactoe/style/RegularTictactoe.css"
+import helpGifPlace from "../../assets/matryoshkaTictactoe/help_1.gif";
+import helpGifCover from "../../assets/matryoshkaTictactoe/help_2.gif";
+import helpGifWin from "../../assets/matryoshkaTictactoe/help_3.gif";
+import "./style/MatryoshkaTictactoe.css"
 
 export class MatryoshkaTictactoe extends RegularTictactoe {
   constructor(props) {
@@ -14,7 +17,8 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
       status: "",
       boardType: "matryoshka",
       usesComputer: false,
-      gameStarted: false
+      gameStarted: false,
+      currentPlayer: 1
     }
     this.setStatus = this.setStatus.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -56,7 +60,7 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
 
   render() {
     if (this.state.gameStarted) {
-      let statusMessage = "";
+      let statusMessage = `Player ${this.state.currentPlayer} is playing...`;
       if (this.state.status == "Draw") {
         statusMessage = "It's a draw!";
       }
@@ -96,6 +100,15 @@ export class MatryoshkaTictactoe extends RegularTictactoe {
             </FormGroup>
           </Form>
           <Button color="primary" className="buttons" onClick={() => this.startGame()}>Start game</Button>
+          <div className="helpText">
+            <div className="helpTitle">How to play</div>
+            <div className="helpElement">Drag and drop the piece you want to play onto the board tile of your choice.</div>
+            <img src={helpGifPlace} alt="Place piece gif" className="helpElement" />
+            <div className="helpElement">Like you would with matryoshka dolls, you can cover one of the other player's pieces by one of yours by placing a piece that is bigger than theirs over it.</div>
+            <img src={helpGifCover} alt="Cover piece gif" className="helpElement" />
+            <div className="helpElement">Win by getting three of your pieces in a row, just like regular Tic-tac-toe!</div>
+            <img src={helpGifWin} alt="Win game gif" className="helpElement" />
+          </div>
         </div>
       )
     }

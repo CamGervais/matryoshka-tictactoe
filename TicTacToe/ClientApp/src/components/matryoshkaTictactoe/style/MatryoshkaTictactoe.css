@@ -1,0 +1,36 @@
+﻿.startGameForm {
+    text-align: center;
+}
+
+.buttons {
+    margin: 2vh;
+    font-size: large;
+}
+
+.board {
+    text-align: center;
+}
+
+.textLines {
+    font-size: large;
+}
+
+.checkboxes {
+    cursor: pointer;
+}
+
+.helpText {
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.helpTitle {
+    font-weight: bold;
+    margin-top: 2vh;
+}
+
+.helpElement {
+    margin: 1vh;
+}
